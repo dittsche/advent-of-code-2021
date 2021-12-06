@@ -6,6 +6,7 @@ fun main() {
         2 to Day2,
         3 to Day3,
         4 to Day4,
+        5 to Day5,
 //        6 to Day6,
     ).forEach { (index, solver) ->
         println("Advent of Code 2021 - Day $index")
