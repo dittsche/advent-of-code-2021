@@ -3,6 +3,7 @@ fun main() {
 
     mapOf<Int, PuzzleSolver>(
         1 to Day1,
+        2 to Day2,
 //        6 to Day6,
     ).forEach { (index, solver) ->
         println("Advent of Code 2021 - Day $index")

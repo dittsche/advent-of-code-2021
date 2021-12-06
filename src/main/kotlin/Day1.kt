@@ -18,7 +18,7 @@ object Day1 : PuzzleSolver {
             .size.toString()
     }
 
-    private fun String.splitToInts() = split("\r", "\n\r", "\n").map { it.toInt() }
+    private fun String.splitToInts() = lines().map { it.toInt() }
 
     private fun List<Int>.associateByPreviousValue() = withIndex()
         .filterNot { it.index == 0 }
