@@ -1,26 +1,26 @@
 object Day2 : PuzzleSolver {
 
-    override fun solve1(input: String): String {
+    override fun solve1(input: String): Number {
         val commands = input.splitToCommands()
 
         return Submarine()
             .apply { commands.forEach { this moveBy it } }
-            .whereAmI.toString()
+            .whereAmI
     }
 
-    override fun solve2(input: String): String {
+    override fun solve2(input: String): Number {
         val commands = input.splitToCommands()
 
         return Submarine()
             .apply { commands.forEach { this moveBy2 it } }
-            .whereAmI.toString()
+            .whereAmI
     }
 
-    fun String.splitToCommands() = lines()
+    private fun String.splitToCommands() = lines()
         .map { it.split(" ") }
         .map { Command(Direction.valueOf(it[0].uppercase()), it[1].toInt()) }
 
-    class Submarine(private val position: Position = Position(), private var aim: Int = 0) {
+    private class Submarine(private val position: Position = Position(), private var aim: Int = 0) {
         infix fun moveBy(command: Command) {
             when (command.direction) {
                 Direction.FORWARD -> position.horizontal += command.amount
@@ -43,9 +43,9 @@ object Day2 : PuzzleSolver {
         val whereAmI: Int get() = position.horizontal * position.depth
     }
 
-    data class Position(var horizontal: Int = 0, var depth: Int = 0)
+    private data class Position(var horizontal: Int = 0, var depth: Int = 0)
 
-    data class Command(val direction: Direction, val amount: Int)
+    private data class Command(val direction: Direction, val amount: Int)
 
-    enum class Direction { FORWARD(), DOWN, UP }
+    private enum class Direction { FORWARD(), DOWN, UP }
 }

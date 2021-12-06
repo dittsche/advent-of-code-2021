@@ -1,15 +1,14 @@
 object Day6 : PuzzleSolver {
-    override fun solve1(input: String): String {
+    override fun solve1(input: String): Number {
         var fish = input.splitToInts().map { Fish(it) }
         for (i in 0 until 80) {
             fish = fish.flatMap { it.tic() }
         }
 
-        return fish.size.toString()
+        return fish.size
     }
 
-    override fun solve2(input: String): String =
-        input.splitToInts().sumOf { countFish(256 - it) }.toString()
+    override fun solve2(input: String): Number = input.splitToInts().sumOf { countFish(256 - it) }
 
     private fun String.splitToInts(delimiter: String = ",") = split(delimiter).map { it.toInt() }
 
