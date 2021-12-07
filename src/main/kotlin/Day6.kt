@@ -10,8 +10,6 @@ object Day6 : PuzzleSolver {
 
     override fun solve2(input: String): Number = input.splitToInts().sumOf { countFish(256 - it) }
 
-    private fun String.splitToInts(delimiter: String = ",") = split(delimiter).map { it.toInt() }
-
     private fun countFish(remainingDays: Int): Long =
         1L + (remainingDays - 1 downTo 0 step 7).sumOf { days -> countFish(days - 8) }
 

@@ -2,7 +2,7 @@ object Day4 : PuzzleSolver {
 
     override fun solve1(input: String): Number {
         val lines = input.lines()
-        val numbers = lines[0].split(",").map { it.toInt() }
+        val numbers = lines[0].splitToInts()
         val boards = lines.drop(1).filterNot { it.isEmpty() }.chunked(5) { it.toBoard() }
 
         var winningBoard: Board? = null
@@ -19,7 +19,7 @@ object Day4 : PuzzleSolver {
 
     override fun solve2(input: String): Number {
         val lines = input.lines()
-        val numbers = lines[0].split(",").map { it.toInt() }
+        val numbers = lines[0].splitToInts()
         val boards = lines.drop(1).filterNot { it.isEmpty() }.chunked(5) { it.toBoard() }
 
         var lastWinningBoard: Board? = null
