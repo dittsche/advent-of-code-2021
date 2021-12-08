@@ -8,6 +8,7 @@ class Day4Test : AbstractPuzzleSolverTest(4, Day4, 4512, 1924)
 class Day5Test : AbstractPuzzleSolverTest(5, Day5, 5, 12)
 // class Day6Test : AbstractPuzzleSolverTest(6, Day6, 5934, 26984457539)
 class Day7Test : AbstractPuzzleSolverTest(7, Day7, 37, 168)
+class Day8Test : AbstractPuzzleSolverTest(8, Day8, 26, 61229)
 
 abstract class AbstractPuzzleSolverTest(
     private val day: Int,

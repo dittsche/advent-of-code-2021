@@ -11,9 +11,8 @@ object Day1 : PuzzleSolver {
     override fun solve2(input: String): Number {
         val depths = input.splitToInts()
 
-        val measurementWindows = (0..depths.size - 3).map { depths[it] + depths[it + 1] + depths[it + 2] }
-
-        return measurementWindows.zipWithNext()
+        return depths.windowed(3) { it.sum() }
+            .zipWithNext()
             .filterIncreases()
             .size
     }
