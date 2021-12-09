@@ -1,4 +1,5 @@
 object Day2 : PuzzleSolver {
+    override val day get() = 2
 
     override fun solve1(input: String): Number {
         val commands = input.splitToCommands()

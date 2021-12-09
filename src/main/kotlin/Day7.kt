@@ -1,6 +1,8 @@
 import kotlin.math.abs
 
 object Day7 : PuzzleSolver {
+    override val day get() = 7
+
     override fun solve1(input: String): Number {
         val positions = input.splitToInts()
         val maxPosition = positions.maxOf { it }
