@@ -1,5 +1,4 @@
-object Day20 : PuzzleSolver {
-    override val day get() = 20
+object Day20 : PuzzleSolver(20) {
 
     override fun solve1(input: String): Number {
         return 0

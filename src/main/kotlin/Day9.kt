@@ -1,5 +1,4 @@
-object Day9 : PuzzleSolver {
-    override val day get() = 9
+object Day9 : PuzzleSolver(9) {
 
     override fun solve1(input: String): Number {
         val width = input.lines().first().length

@@ -1,8 +1,7 @@
 import kotlin.math.max
 import kotlin.math.min
 
-object Day5 : PuzzleSolver {
-    override val day get() = 5
+object Day5 : PuzzleSolver(5) {
 
     override fun solve1(input: String): Number {
         val lines = input.splitToLines()

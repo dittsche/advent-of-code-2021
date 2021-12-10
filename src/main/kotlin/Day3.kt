@@ -1,7 +1,6 @@
 import kotlin.math.pow
 
-object Day3 : PuzzleSolver {
-    override val day get() = 3
+object Day3 : PuzzleSolver(3) {
 
     override fun solve1(input: String): Number {
         val mostCommonBitValues = (input.firstLineLength - 1 downTo 0)
