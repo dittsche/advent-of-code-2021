@@ -8,7 +8,7 @@ object Day10 : PuzzleSolver(10) {
         .asSequence()
         .map { it.toIncorrectCharacter() }
         .filter { (incorrectChar, _) -> incorrectChar == null }
-        .map { (_, stack) -> stack.reversed().fold(0L) { acc, curr -> acc * 5 + curr.score2 } }
+        .map { (_, stack) -> stack.foldRight(0L) { curr, acc -> acc * 5 + curr.score2 } }
         .sorted()
         .toList()
         .let { it[it.size / 2] }
