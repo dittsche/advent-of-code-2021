@@ -43,10 +43,10 @@ object Day9 : PuzzleSolver(9) {
             return indicesInBasin
         }
 
-        private val Int.indexUp get() = if (this % width != 0) this - 1 else -1
-        private val Int.indexDown get() = if (this % width != width - 1) this + 1 else -1
-        private val Int.indexLeft get() = this - width
-        private val Int.indexRight get() = this + width
+        private val Int.indexUp get() = this - width
+        private val Int.indexDown get() = this + width
+        private val Int.indexLeft get() = if (this % width != 0) this - 1 else -1
+        private val Int.indexRight get() = if (this % width != width - 1) this + 1 else -1
 
         private val Int.heightUp get() = heights.getOrElse(indexUp) { 9 }
         private val Int.heightDown get() = heights.getOrElse(indexDown) { 9 }
