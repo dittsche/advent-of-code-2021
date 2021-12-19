@@ -28,48 +28,57 @@ object Day16 : PuzzleSolver(16) {
         val version = extractVersion()
         val type = extractType()
         val remainder = drop(6)
-        val remainderAfterSubPackets: String
-        val subPackets = when (type) {
-            LITERAL -> {
-                val chunked = remainder.chunked(LITERAL_LENGTH)
-                val literalGroups = with(chunked.takeWhile { it[0] == '1' }) {
-                    this + chunked[count()]
-                }.map { it.drop(1) }
-                val value = literalGroups.joinToString("") { it }.toLong(2)
-
-                remainderAfterSubPackets = remainder.drop(LITERAL_LENGTH * literalGroups.count())
-                return Literal(version, value) to remainderAfterSubPackets
-            }
-            else -> {
-                if (remainder[0] == '0') {
-                    val subPacketsBits = remainder.drop(1).take(15).toInt(2)
-                    var subPacketsString = remainder.drop(16).take(subPacketsBits)
-                    remainderAfterSubPackets = remainder.drop(16 + subPacketsBits)
-
-                    val packets = mutableListOf<Packet>()
-                    while (subPacketsString.isNotEmpty()) {
-                        val result = subPacketsString.toPacket()
-                        packets.add(result.first)
-                        subPacketsString = result.second
-                    }
-                    packets
-                } else {
-                    val subPacketsCount = remainder.drop(1).take(11).toInt(2)
-                    var subPacketsString = remainder.drop(12)
-
-                    val packets = mutableListOf<Packet>()
-                    for (i in 0 until subPacketsCount) {
-                        val result = subPacketsString.toPacket()
-                        packets.add(result.first)
-                        subPacketsString = result.second
-                    }
-
-                    remainderAfterSubPackets = subPacketsString
-                    packets
+        return when (type) {
+            LITERAL -> remainder.parseLiteral()
+                .let { (literalGroups, value) ->
+                    Literal(version, value) to remainder.drop(LITERAL_LENGTH * literalGroups.count())
                 }
-            }
+
+            else -> remainder.parseSubPackets()
+                .let { (subPackets, remainderAfterSubPackets) ->
+                    Operator(version, type, subPackets) to remainderAfterSubPackets
+                }
         }
-        return Operator(version, type, subPackets) to remainderAfterSubPackets
+    }
+
+    private fun String.parseLiteral(): Pair<List<String>, Long> {
+        val literalGroups = with(chunked(LITERAL_LENGTH)) {
+            takeWhile { it[0] == '1' }
+                .let { it + this[it.count()] }
+                .map { it.drop(1) }
+        }
+        val value = literalGroups.joinToString("") { it }.toLong(2)
+        return Pair(literalGroups, value)
+    }
+
+    private fun String.parseSubPackets() =
+        if (this[0] == '0') parseSubPacketsWithTotalLength() else parseSubPacketsWithTotalNumber()
+
+    private fun String.parseSubPacketsWithTotalLength(): Pair<List<Packet>, String> {
+        val subPacketsBits = drop(1).take(15).toInt(2)
+        var subPacketsString = drop(16).take(subPacketsBits)
+
+        val packets = mutableListOf<Packet>()
+        while (subPacketsString.isNotEmpty()) {
+            val (packet, remainder) = subPacketsString.toPacket()
+            packets.add(packet)
+            subPacketsString = remainder
+        }
+        return packets to drop(16 + subPacketsBits)
+    }
+
+    private fun String.parseSubPacketsWithTotalNumber(): Pair<MutableList<Packet>, String> {
+        val subPacketsCount = drop(1).take(11).toInt(2)
+        var subPacketsString = drop(12)
+
+        val packets = mutableListOf<Packet>()
+        for (i in 0 until subPacketsCount) {
+            val (packet, remainder) = subPacketsString.toPacket()
+            packets.add(packet)
+            subPacketsString = remainder
+        }
+
+        return packets to subPacketsString
     }
 
     private abstract class Packet(open val version: Int, open val type: PacketType?) {
