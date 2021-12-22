@@ -28,6 +28,7 @@ class Day21Test : AbstractPuzzleSolverTest(Day21, -1, -1)
 class Day22Test : AbstractPuzzleSolverTest(Day22, -1, -1)
 class Day23Test : AbstractPuzzleSolverTest(Day23, -1, -1)
 class Day24Test : AbstractPuzzleSolverTest(Day24, -1, -1)
+class Day25Test : AbstractPuzzleSolverTest(Day25, -1, -1)
 
 abstract class AbstractPuzzleSolverTest(
     private val sut: PuzzleSolver,

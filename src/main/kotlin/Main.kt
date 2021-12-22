@@ -28,6 +28,7 @@ fun main() {
 //        Day22,
 //        Day23,
 //        Day24,
+//        Day25,
     ).forEach { solver ->
         println("Advent of Code 2021 - Day ${solver.day}")
         measureTimeMillis {
